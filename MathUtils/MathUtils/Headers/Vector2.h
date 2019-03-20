@@ -1,27 +1,25 @@
 #ifndef __VECTOR2_H__
 #define __VECTOR2_H__
 
-
-struct Vector2
+namespace YBMath
 {
-public:
-	Vector2();
-	Vector2(float x);
-	Vector2(float x, float y);
-	~Vector2();
+    struct Vector2
+    {
+    public:
+        Vector2();
+        Vector2(float x);
+        Vector2(float x, float y);
+        ~Vector2();
 
 
 
+        ////      ---- MEMBER VARIABLES ----
+    public:
+        float x;
+        float y;
 
-
-
-
-////      ---- MEMBER VARIABLES ----
-public:
-	float x;
-	float y;
-
-};
+    };
+}
 
 
 
