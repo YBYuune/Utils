@@ -23,7 +23,7 @@ namespace YBMathTestingSuite
 		{
 			Logger::WriteMessage("IN: CreateVector2_OneParam");
 
-			float xyValue = 5.5f;
+			const float xyValue = 5.5f;
 
 			YBMath::Vector2 testVec(xyValue);
 
@@ -36,8 +36,8 @@ namespace YBMathTestingSuite
 		{
 			Logger::WriteMessage("IN: CreateVector2_TwoParam");
 
-			float xValue = 5.5f;
-			float yValue = -4.3f;
+			const float xValue = 5.5f;
+			const float yValue = -4.3f;
 
 			YBMath::Vector2 testVec(xValue, yValue);
 
@@ -45,5 +45,18 @@ namespace YBMathTestingSuite
 			Assert::AreEqual(testVec.GetY(), yValue);
 		}
 
+
+		TEST_METHOD(Vector2_MagnitudeSquared)
+		{
+			Logger::WriteMessage("IN: Vector2_MagnitudeSquared");
+
+			const float xValue = 3.0f;
+			const float yValue = 4.0f;
+			const float magnitudeSquared = 25.0f;
+
+			YBMath::Vector2 testVec(xValue, yValue);
+
+			Assert::AreEqual(testVec.GetMagnitudeSquared(), magnitudeSquared);
+		}
 	};
 }

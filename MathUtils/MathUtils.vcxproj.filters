@@ -19,10 +19,16 @@
     <Filter Include="Source Files\Vector">
       <UniqueIdentifier>{4d6c69ac-1203-423f-b034-3a27e14d252f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Point">
+      <UniqueIdentifier>{8671e120-db40-435a-89c3-2a1b33c5179e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\Vector\Vector2.h">
       <Filter>Header Files\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Point\Point2f.h">
+      <Filter>Header Files\Point</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
