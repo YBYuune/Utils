@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\MathUtils\MathUtils\Headers\Vector2.h"
+#include "..\MathUtils\Source Files\Vector\Vector2.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace YBMath;
