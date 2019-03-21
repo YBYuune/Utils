@@ -19,20 +19,26 @@ bool Vector2::WillMakeDirty(const T &original, const T &value)
 
 
 Vector2::Vector2() :
-	m_X(0.0f), 
-	m_Y(0.0f)
+	m_X(0.0f),
+	m_Y(0.0f),
+	m_Magnitude(0.0f),
+	m_IsDirty(true)
 {
 }
 
 Vector2::Vector2(float x) :
 	m_X(x), 
-	m_Y(x)
+	m_Y(x),
+	m_Magnitude(0.0f),
+	m_IsDirty(true)
 {
 }
 
 Vector2::Vector2(float x, float y) :
 	m_X(x), 
-	m_Y(y)
+	m_Y(y),
+	m_Magnitude(0.0f),
+	m_IsDirty(true)
 {
 }
 
