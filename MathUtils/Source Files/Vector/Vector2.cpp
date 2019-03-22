@@ -157,8 +157,15 @@ const Vector2& Vector2::Normalize()
 	m_Magnitude = GetMagnitude();
 
 	// Normalize components
-	SetX(m_X / m_Magnitude);
-	SetY(m_Y / m_Magnitude);
+    if (m_Magnitude == 0.0f)
+    {
+        SetXY(0.0f, 0.0f);
+    }
+    else
+    {
+        SetX(m_X / m_Magnitude);
+        SetY(m_Y / m_Magnitude);
+    }
 
 	// Return ourselves after we've been normalized
 	return *this;

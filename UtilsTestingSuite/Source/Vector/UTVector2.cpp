@@ -2,6 +2,8 @@
 #include "CppUnitTest.h"
 #include "Vector\Vector2.h"
 
+#include <string>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace YBMath;
 
@@ -58,5 +60,65 @@ namespace YBMathTestingSuite
 
 			Assert::AreEqual(testVec.GetMagnitudeSquared(), magnitudeSquared);
 		}
+
+        TEST_METHOD(Vector2_MagnitudeZero)
+        {
+            Logger::WriteMessage("IN: Vector2_MagnitudeZero");
+
+            const float magnitude = 0.0f;
+
+            YBMath::Vector2 testVec;
+
+            Assert::AreEqual(testVec.GetMagnitude(), magnitude);
+        }
+
+
+        TEST_METHOD(Vector2_NormalizeWithXYEqualZero)
+        {
+            Logger::WriteMessage("IN: Vector2_NormalizeWithMagnitudeZero");
+
+            YBMath::Vector2 testVec;
+            YBMath::Vector2 normalizedVec;
+            
+            testVec.Normalize();
+
+            Assert::AreEqual(testVec.GetX(), normalizedVec.GetX());
+            Assert::AreEqual(testVec.GetY(), normalizedVec.GetY());
+        }
+
+
+        TEST_METHOD(Vector2_CheckNormalized)
+        {
+            Logger::WriteMessage("IN: Vector2_NormalizeWithMagnitudeZero");
+
+            const float xComp = 3.0f / 5.0f;
+            const float yComp = 4.0f / 5.0f;
+
+            Logger::WriteMessage((std::string("XCOMP: ") + std::to_string(xComp)).c_str());
+            Logger::WriteMessage((std::string("YCOMP: ") + std::to_string(yComp)).c_str());
+
+            YBMath::Vector2 testVec(3.0f, 4.0f);
+
+            YBMath::Vector2 normalizedTestVec = testVec.GetNormalized();
+
+            Assert::AreEqual(normalizedTestVec.GetX(), xComp);
+            Assert::AreEqual(normalizedTestVec.GetY(), yComp);
+        }
+
+
+        TEST_METHOD(Vector2_NormalizedMagnitude)
+        {
+            Logger::WriteMessage("IN: Vector2_NormalizeWithMagnitudeZero");
+
+            const float magnitude = 1.0f;
+
+            YBMath::Vector2 testVec(3.0f, 4.0f);
+
+            testVec.Normalize();
+
+            Assert::AreEqual(testVec.GetMagnitude(), magnitude);
+        }
+
+
 	};
 }
