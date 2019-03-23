@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source Files\Helpers\BitMaskHelpers.h" />
     <ClInclude Include="Source Files\Point\Point2f.h" />
     <ClInclude Include="Source Files\Vector\Vector2.h" />
   </ItemGroup>
@@ -29,7 +30,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B0801E5D-182A-4B4C-BD9D-C03D847B35A7}</ProjectGuid>
     <RootNamespace>MathUtils</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

@@ -1,13 +1,15 @@
 #include "Vector2.h"
+#include "Helpers/BitMaskHelpers.h"
 
 #include <cmath>
+
 
 using namespace YBMath;
 
 /// 
 float Vector2::GetMagnitude(const Vector2 &v)
 {
-	return std::sqrtf( GetMagnitudeSquared(v) );
+	return std::sqrt( GetMagnitudeSquared(v) );
 }
 
 float Vector2::GetMagnitudeSquared(const Vector2 &v)
@@ -15,7 +17,7 @@ float Vector2::GetMagnitudeSquared(const Vector2 &v)
 	return v.GetMagnitudeSquared();
 }
 
-const Vector2& Vector2::GetNormalized(const Vector2& v)
+const Vector2 Vector2::GetNormalized(const Vector2& v)
 {
 	// Create vector to store normalized values
 	Vector2 normalized = v;
@@ -30,7 +32,9 @@ const Vector2& Vector2::GetNormalized(const Vector2& v)
 Vector2::Vector2() :
 	m_X(0.0f),
 	m_Y(0.0f),
+	m_MagnitudeSquared(0.0f),
 	m_Magnitude(0.0f),
+	m_Normalized( { 0.0f, 0.0f } ),
 	m_DirtynessMask(c_ALL_DIRTY)
 {
 }
@@ -38,7 +42,9 @@ Vector2::Vector2() :
 Vector2::Vector2(float x) :
 	m_X(x), 
 	m_Y(x),
+	m_MagnitudeSquared(0.0f),
 	m_Magnitude(0.0f),
+	m_Normalized( { 0.0f, 0.0f } ),
 	m_DirtynessMask(c_ALL_DIRTY)
 {
 }
@@ -46,7 +52,9 @@ Vector2::Vector2(float x) :
 Vector2::Vector2(float x, float y) :
 	m_X(x), 
 	m_Y(y),
+	m_MagnitudeSquared(0.0f),
 	m_Magnitude(0.0f),
+	m_Normalized( { 0.0f, 0.0f } ),
 	m_DirtynessMask(c_ALL_DIRTY)
 {
 }
@@ -54,7 +62,9 @@ Vector2::Vector2(float x, float y) :
 Vector2::Vector2(const Vector2& v) :
 	m_X(v.m_X),
 	m_Y(v.m_Y),
+	m_MagnitudeSquared(v.m_MagnitudeSquared),
 	m_Magnitude(v.m_Magnitude),
+	m_Normalized(v.m_Normalized),
 	m_DirtynessMask(v.m_DirtynessMask)
 {
 }
@@ -62,7 +72,9 @@ Vector2::Vector2(const Vector2& v) :
 Vector2::Vector2(const Point2f& p) :
 	m_X(p.x),
 	m_Y(p.y),
+	m_MagnitudeSquared(0.0f),
 	m_Magnitude(0.0f),
+	m_Normalized( { 0.0f, 0.0f } ),
 	m_DirtynessMask(c_ALL_DIRTY)
 {
 }
@@ -110,7 +122,7 @@ float Vector2::GetMagnitudeSquared() const
 		// calculate square of magnitude
 		m_MagnitudeSquared = (m_X * m_X) + (m_Y * m_Y);
 
-		m_DirtynessMask &= c_MAGSQR_DIRTY;
+		Helpers::BitMaskHelpers::RemoveFlagsFromMask(m_DirtynessMask, c_MAGSQR_DIRTY);
 	}
 
 	return m_MagnitudeSquared;
@@ -122,16 +134,16 @@ float Vector2::GetMagnitude() const
 	// Re-calculate magnitude if it needs to be recalculated
 	if (m_DirtynessMask & c_MAG_DIRTY)
 	{
-		m_Magnitude = std::sqrtf( GetMagnitudeSquared() );
+		m_Magnitude = std::sqrt( GetMagnitudeSquared() );
 
-		m_DirtynessMask &= ~c_MAG_DIRTY;
+		Helpers::BitMaskHelpers::RemoveFlagsFromMask(m_DirtynessMask, c_MAG_DIRTY);
 	}
 
 	return m_Magnitude;
 }
 
 
-const Vector2& Vector2::GetNormalized() const
+const Vector2 Vector2::GetNormalized() const
 {
 	// Check if we need to recalculate
 	if (m_DirtynessMask & c_NORM_DIRTY)
@@ -144,7 +156,7 @@ const Vector2& Vector2::GetNormalized() const
 		m_Normalized.y = normalized.GetY();
 
 		// Clean normal flag
-		m_DirtynessMask &= ~c_NORM_DIRTY;
+		Helpers::BitMaskHelpers::RemoveFlagsFromMask(m_DirtynessMask, c_NORM_DIRTY);
 	}
 
 	// Return newly created Vector2 with components set to our normalized Point2f
@@ -154,17 +166,25 @@ const Vector2& Vector2::GetNormalized() const
 const Vector2& Vector2::Normalize()
 {
 	// Make sure magnitude is up to date
-	m_Magnitude = GetMagnitude();
-
 	// Normalize components
-    if (m_Magnitude == 0.0f)
+    if (GetMagnitude() == 0.0f)
     {
         SetXY(0.0f, 0.0f);
     }
     else
     {
-        SetX(m_X / m_Magnitude);
-        SetY(m_Y / m_Magnitude);
+		// Done manually since we know the outcome
+		// Set Components
+        m_X = m_X / m_Magnitude;
+        m_Y = m_Y / m_Magnitude;
+
+		// Set cached values
+		m_MagnitudeSquared = 1.0f;
+		m_Magnitude = 1.0f;
+		m_Normalized = { m_X, m_Y };
+
+		// Clean out flags
+		Helpers::BitMaskHelpers::RemoveFlagsFromMask(m_DirtynessMask, c_ALL_DIRTY);
     }
 
 	// Return ourselves after we've been normalized

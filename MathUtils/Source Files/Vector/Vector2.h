@@ -27,7 +27,7 @@ namespace YBMath
 		// Logically const because it does not affect x, y components
 		float GetMagnitudeSquared() const;
 		float GetMagnitude() const;
-		const Vector2& GetNormalized() const;
+		const Vector2 GetNormalized() const;
 		const Vector2& Normalize();
 
 	private:
@@ -41,7 +41,7 @@ namespace YBMath
 	public:
 		static float GetMagnitude(const Vector2 &v);
 		static float GetMagnitudeSquared(const Vector2 &v);
-		static const Vector2& GetNormalized(const Vector2& v);
+		static const Vector2 GetNormalized(const Vector2& v);
 
 	
 	////      ---- CONST VARIABLES ----
@@ -62,7 +62,7 @@ namespace YBMath
 		float m_X;
 		float m_Y;
 
-		// Calculated members that only change when X, Y components are changed
+		// Cached members that only change when X, Y components are changed
 		mutable float   m_MagnitudeSquared;
 		mutable float   m_Magnitude;
 		mutable Point2f m_Normalized;
