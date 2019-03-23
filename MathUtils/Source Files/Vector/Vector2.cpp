@@ -9,7 +9,7 @@ using namespace YBMath;
 /// 
 float Vector2::GetMagnitude(const Vector2 &v)
 {
-	return std::sqrt( GetMagnitudeSquared(v) );
+	return std::sqrtf( GetMagnitudeSquared(v) );
 }
 
 float Vector2::GetMagnitudeSquared(const Vector2 &v)
@@ -17,7 +17,7 @@ float Vector2::GetMagnitudeSquared(const Vector2 &v)
 	return v.GetMagnitudeSquared();
 }
 
-const Vector2 Vector2::GetNormalized(const Vector2& v)
+Vector2 Vector2::GetNormalized(const Vector2& v)
 {
 	// Create vector to store normalized values
 	Vector2 normalized = v;
@@ -134,7 +134,7 @@ float Vector2::GetMagnitude() const
 	// Re-calculate magnitude if it needs to be recalculated
 	if (m_DirtynessMask & c_MAG_DIRTY)
 	{
-		m_Magnitude = std::sqrt( GetMagnitudeSquared() );
+		m_Magnitude = std::sqrtf( GetMagnitudeSquared() );
 
 		Helpers::BitMaskHelpers::RemoveFlagsFromMask(m_DirtynessMask, c_MAG_DIRTY);
 	}
@@ -143,13 +143,16 @@ float Vector2::GetMagnitude() const
 }
 
 
-const Vector2 Vector2::GetNormalized() const
+Vector2 Vector2::GetNormalized() const
 {
 	// Check if we need to recalculate
 	if (m_DirtynessMask & c_NORM_DIRTY)
 	{
-		// Call static normalization function
-		Vector2 normalized = GetNormalized(*this);
+		// Create temp Vector2
+		Vector2 normalized = *this;
+
+		// Normalize it
+		normalized.Normalize();
 
 		// Store component values in our local normal member
 		m_Normalized.x = normalized.GetX();
@@ -195,7 +198,7 @@ const Vector2& Vector2::Normalize()
 // Let's us know that we need to recalculate certain member variables
 // Only to be used when setting X and Y
 template<typename T>
-void Vector2::SetMemberIntegrityCheck(T& member, const T &value)
+inline void Vector2::SetMemberIntegrityCheck(T& member, const T &value)
 {
 	// If the values changed, all calculated members are now dirty
 	// If values did not change, dirtyness level remains the same
@@ -204,3 +207,4 @@ void Vector2::SetMemberIntegrityCheck(T& member, const T &value)
 
 	member = value;
 }
+

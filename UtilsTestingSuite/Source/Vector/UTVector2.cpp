@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "Vector\Vector2.h"
+
+#include "Vector/Vector2.h"
 
 #include <string>
 
@@ -47,7 +48,59 @@ namespace Vector2Tests
 		}
 	};
 
-	TEST_CLASS(Vector2_CalculatedMembers)
+	TEST_CLASS(Vector2_Setters)
+	{
+		TEST_METHOD(Vector2_SetX)
+		{
+			Logger::WriteMessage("IN: Vector2_SetX");
+
+			const float xValue = 5.5f;
+
+			YBMath::Vector2 testVec;
+
+			// TEST
+			testVec.SetX(xValue);
+
+			// VALIDATION
+			Assert::AreEqual(xValue, testVec.GetX());
+		}
+
+
+		TEST_METHOD(Vector2_SetY)
+		{
+			Logger::WriteMessage("IN: CreateVector2_TwoParam");
+
+			const float yValue = -4.3f;
+
+			YBMath::Vector2 testVec;
+
+			// TEST
+			testVec.SetY(yValue);
+
+			// VALIDATION
+			Assert::AreEqual(yValue, testVec.GetY());
+		}
+
+
+		TEST_METHOD(Vector2_SetXY)
+		{
+			Logger::WriteMessage("IN: CreateVector2_TwoParam");
+
+			const float xValue = 5.5f;
+			const float yValue = -4.3f;
+
+			YBMath::Vector2 testVec;
+
+			// TEST
+			testVec.SetXY(xValue, yValue);
+
+			// VALIDATION
+			Assert::AreEqual(xValue, testVec.GetX());
+			Assert::AreEqual(yValue, testVec.GetY());
+		}
+	};
+
+	TEST_CLASS(Vector2_CachedMembers)
 	{
 		TEST_METHOD(Vector2_MagnitudeSquared)
 		{
@@ -61,7 +114,6 @@ namespace Vector2Tests
 
 			Assert::AreEqual(magnitudeSquared, testVec.GetMagnitudeSquared());
 		}
-
 
 		TEST_METHOD(Vector2_MagnitudeSquaredAfterSet)
 		{
@@ -392,4 +444,104 @@ namespace Vector2Tests
 			Assert::AreEqual(yComp, testVec.GetY());
 		}
 	};
+
+	TEST_CLASS(Vector2_Combo)
+	{
+		TEST_METHOD(Vector2_GetMagnitudeSquaredTwice)
+		{
+			Logger::WriteMessage("IN: Vector2_GetMagnitudeSquaredTwice");
+
+			const float xComp = 3.0f;
+			const float yComp = 4.0f;
+			const float magnitudeSquared = 25.0f;
+
+			Vector2 testVec(xComp, yComp);
+
+			Assert::AreEqual(magnitudeSquared, testVec.GetMagnitudeSquared());
+
+			Assert::AreEqual(magnitudeSquared, testVec.GetMagnitudeSquared());
+		}
+	};
+
+	TEST_CLASS(Vector2_UnaryOperators)
+	{
+		TEST_METHOD(Vector2_Negation)
+		{
+			Logger::WriteMessage("IN: Vector2_Negation");
+
+			const float xComp = 1.0f;
+			const float yComp = -5.0f;
+			const float negatedXComp = -xComp;
+			const float negatedYComp = -yComp;
+
+
+			Vector2 startVec(xComp, yComp);
+
+			Vector2 negatedVec = -startVec;
+
+			Assert::AreEqual(negatedVec.GetX(), negatedXComp);
+			Assert::AreEqual(negatedVec.GetY(), negatedYComp);
+		}
+	};
+
+	TEST_CLASS(Vector2_BinaryComparisonOperators)
+	{
+		TEST_METHOD(Vector2_Equals)
+		{
+			Logger::WriteMessage("IN: Vector2_Equals");
+
+			const float xComp = 1.0f;
+			const float yComp = -5.0f;
+
+			Vector2 testVec1(xComp, yComp);
+			Vector2 testVec2(xComp, yComp);
+
+			Assert::IsTrue(testVec1 == testVec2);
+		}
+
+		TEST_METHOD(Vector2_EqualsFalse)
+		{
+			Logger::WriteMessage("IN: Vector2_EqualsFalse");
+
+			const float xComp1 = 1.0f;
+			const float yComp1 = -5.0f;
+			const float xComp2 = -99.0f;
+			const float yComp2 = 12.34f;
+
+			Vector2 testVec1(xComp1, yComp1);
+			Vector2 testVec2(xComp2, yComp2);
+
+			Assert::IsFalse(testVec1 == testVec2);
+		}
+
+
+		TEST_METHOD(Vector2_NotEquals)
+		{
+			Logger::WriteMessage("IN: Vector2_NotEquals");
+
+			const float xComp1 = 1.0f;
+			const float yComp1 = -5.0f;
+			const float xComp2 = -99.0f;
+			const float yComp2 = 12.34f;
+
+			Vector2 testVec1(xComp1, yComp1);
+			Vector2 testVec2(xComp2, yComp2);
+
+			Assert::IsTrue(testVec1 != testVec2);
+		}
+
+		TEST_METHOD(Vector2_NotEqualsFalse)
+		{
+			Logger::WriteMessage("IN: Vector2_NotEqualsFalse");
+
+			const float xComp = 1.0f;
+			const float yComp = -5.0f;
+
+			Vector2 testVec1(xComp, yComp);
+			Vector2 testVec2(xComp, yComp);
+
+			Assert::IsFalse(testVec1 != testVec2);
+		}
+	};
+
 }

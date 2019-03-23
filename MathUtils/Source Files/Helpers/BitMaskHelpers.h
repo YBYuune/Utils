@@ -5,12 +5,12 @@ namespace YBMath
 {
 	namespace Helpers
 	{
+		//////////// ---- DEFINITION ----
 		class BitMaskHelpers
 		{
 		public:
 			template <typename T>
 			static void RemoveFlagsFromMask(T& mask, const T flags);
-
 		};
 
 

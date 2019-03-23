@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\Helpers\BitMaskHelpers.h" />
+    <ClInclude Include="Source Files\Helpers\MathHelpers.h" />
     <ClInclude Include="Source Files\Point\Point2f.h" />
     <ClInclude Include="Source Files\Vector\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source Files\Helpers\MathHelpers.cpp" />
     <ClCompile Include="Source Files\Vector\Vector2.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

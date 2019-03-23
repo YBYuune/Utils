@@ -39,10 +39,16 @@
     <ClInclude Include="Source Files\Helpers\BitMaskHelpers.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Source Files\Helpers\MathHelpers.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Files\Vector\Vector2.cpp">
       <Filter>Source Files\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Helpers\MathHelpers.cpp">
+      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
